@@ -42,7 +42,7 @@ html, body { margin: 0; padding: 0; }
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
-html { scroll-padding-top: calc(72px + env(safe-area-inset-top, 0px)); }
+html { scroll-padding-top: calc(100px + env(safe-area-inset-top, 0px)); }
 
 body {
   background: var(--cream);
@@ -72,40 +72,69 @@ body::before {
   -webkit-backdrop-filter: saturate(140%) blur(10px);
   border-bottom: 1px solid rgba(184, 144, 63, 0.15);
 }
-.nav-inner {
-  max-width: 1120px; margin: 0 auto;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 14px 24px;
+.nav-top {
+  position: relative;
+  text-align: center;
+  padding: 14px 24px 6px;
+  max-width: 1120px;
+  margin: 0 auto;
 }
 .brand {
   font-family: var(--f-display);
   font-weight: 600;
   font-style: italic;
-  font-size: 24px;
+  font-size: 30px;
   line-height: 1;
   color: var(--gold-deep);
   letter-spacing: 1.5px;
   text-decoration: none;
+  display: inline-block;
 }
 .brand .amp { color: var(--tile); font-weight: 400; }
-.brand .amp { color: var(--tile); }
-.nav-links { display: flex; gap: 22px; }
-.nav-links a {
+
+.nav-cross {
+  position: absolute;
+  right: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--gold);
+  opacity: 0.7;
+  pointer-events: none;
+}
+.nav-cross svg { display: block; }
+
+.nav-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 0 24px 12px;
+  max-width: 1120px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+}
+.nav-tabs a {
   color: var(--ink-soft);
   text-decoration: none;
-  font-size: 13px;
-  letter-spacing: 1.5px;
+  font-family: var(--f-sans);
+  font-size: 12px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  padding: 6px 0;
-  border-bottom: 1px solid transparent;
+  padding: 6px 2px;
+  border-bottom: 2px solid transparent;
   transition: color 0.2s, border-color 0.2s;
 }
-.nav-links a:hover { color: var(--gold-deep); border-bottom-color: var(--gold); }
+.nav-tabs a:hover { color: var(--gold-deep); }
+.nav-tabs a.active {
+  color: var(--gold-deep);
+  border-bottom-color: var(--gold);
+}
+
 @media (max-width: 560px) {
-  .nav-links { gap: 14px; }
-  .nav-links a { font-size: 11px; letter-spacing: 1px; }
-  .brand { font-size: 22px; letter-spacing: 1.3px; }
-  .nav-inner { padding: 12px 18px; }
+  .nav-top { padding: 12px 20px 4px; }
+  .brand { font-size: 25px; letter-spacing: 1.2px; }
+  .nav-tabs { gap: 14px; padding: 0 16px 10px; }
+  .nav-tabs a { font-size: 10.5px; letter-spacing: 1.3px; }
+  .nav-cross { right: 16px; }
 }
 
 /* ---------- Layout utilities ---------- */
@@ -647,6 +676,25 @@ h2.sec-title {
   position: relative;
   transition: transform 0.2s;
 }
+.food-marker {
+  position: absolute;
+  top: 14px; right: 14px;
+  width: 14px; height: 14px;
+  border: 1.5px solid;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 2px;
+  background: var(--cream-card);
+}
+.food-marker::after {
+  content: '';
+  width: 6px; height: 6px;
+  border-radius: 50%;
+}
+.food-marker.veg       { border-color: #2e7d32; }
+.food-marker.veg::after { background: #2e7d32; }
+.food-marker.nonveg    { border-color: #b71c1c; }
+.food-marker.nonveg::after { background: #b71c1c; }
+.spot h4 { padding-right: 24px; }
 .spot:hover { transform: translateY(-2px); }
 .spot h4 {
   font-family: var(--f-serif);
@@ -827,11 +875,16 @@ h2.sec-title {
 .contact-wrap { max-width: 720px; margin: 0 auto; text-align: center; padding: 72px 24px; }
 @media (max-width: 640px) { .contact-wrap { padding: 56px 20px; } }
 
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  margin-top: 24px;
+}
 .contact-card {
   background: var(--cream-card);
   border: 1px solid var(--line);
-  padding: 36px 28px;
-  margin-top: 24px;
+  padding: 32px 24px 28px;
   box-shadow: 0 1px 0 rgba(184, 144, 63, 0.08);
 }
 .contact-name {
@@ -1283,14 +1336,20 @@ footer {
 
 <!-- ============ NAV ============ -->
 <nav class="nav" aria-label="Primary">
-  <div class="nav-inner">
+  <div class="nav-top">
     <a href="#top" class="brand">A <span class="amp">&amp;</span> R</a>
-    <div class="nav-links">
-      <a href="#invite">Invite</a>
-      <a href="#travel">Travel</a>
-      <a href="#mangalore">Mangalore</a>
-      <a href="#contact">Contact</a>
+    <div class="nav-cross" aria-hidden="true">
+      <svg width="20" height="28" viewBox="0 0 20 28" xmlns="http://www.w3.org/2000/svg">
+        <rect x="9" y="0" width="2" height="28" fill="currentColor"/>
+        <rect x="0" y="8" width="20" height="2" fill="currentColor"/>
+      </svg>
     </div>
+  </div>
+  <div class="nav-tabs" role="tablist">
+    <a href="#invite" class="nav-tab active">Invite</a>
+    <a href="#travel" class="nav-tab">Travel</a>
+    <a href="#mangalore" class="nav-tab">Mangalore</a>
+    <a href="#rsvp" class="nav-tab">RSVP</a>
   </div>
 </nav>
 
@@ -1401,7 +1460,7 @@ footer {
 
 <!-- ============ INTRO / KONKANI WELCOME ============ -->
 <div class="intro">
-  <div class="konkani-greeting">Mog Asundhi</div>
+  <div class="konkani-greeting">Mog Asundi</div>
   <div class="konkani-meaning">Let there be love</div>
   <p>Most of you will be coming in from out of town. We've put together the travel options, and a short Mangalore guide for anyone staying a little longer.</p>
 </div>
@@ -1513,7 +1572,7 @@ footer {
     <div class="travel-panel" data-panel="flight" role="tabpanel">
       <div class="travel-grid">
 
-        <div class="travel-card" data-copy="Early morning flight from Bengaluru (BLR) to Mangalore (IXE) · IndiGo and Air India Express typically operate 6:00 to 7:30 AM departures · Flight time about 1 hour · Lands 7:00 to 8:45 AM · Airport to AJ Grand Elite is about 35 mins drive">
+        <div class="travel-card" data-copy="Bengaluru (BLR) to Mangalore (IXE) · Depart 30 Jan 2027, return 31 Jan evening · IndiGo and Air India Express operate early morning flights · About 1 hour · Airport to AJ Grand Elite is a 35 min drive">
           <div class="card-header">
             <h3 class="card-title">Bengaluru to Mangalore</h3>
             <span class="card-badge">Recommended</span>
@@ -1529,19 +1588,19 @@ footer {
               <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
               Copy details
             </button>
-            <a class="btn-small" href="https://www.google.com/flights?hl=en#flt=BLR.IXE.2027-01-31" target="_blank" rel="noopener">Search flights ↗</a>
+            <a class="btn-small" href="https://www.skyscanner.co.in/transport/flights/blr/ixe/270130/270131/?adultsv2=2&amp;cabinclass=economy&amp;rtn=1" target="_blank" rel="noopener">Search on Skyscanner ↗</a>
           </div>
         </div>
 
-        <div class="travel-card" data-copy="Direct flights to Mangalore (IXE) are also available from Mumbai, Hyderabad, and Delhi (via connection) · IndiGo, Air India Express operate most routes · Book 4-6 weeks ahead for best fares">
+        <div class="travel-card" data-copy="Mumbai (BOM) to Mangalore (IXE) · Depart 30 Jan 2027, return 31 Jan evening · IndiGo and Air India Express operate direct daily flights · Flight time about 1 hr 30 min">
           <div class="card-header">
-            <h3 class="card-title">From Mumbai, Hyderabad, Delhi</h3>
-            <span class="card-badge">Direct + 1 stop</span>
+            <h3 class="card-title">Mumbai to Mangalore</h3>
+            <span class="card-badge">Direct</span>
           </div>
-          <div class="card-route">BOM / HYD / DEL <span class="arrow">→</span> IXE</div>
+          <div class="card-route">BOM <span class="arrow">→</span> IXE</div>
           <div class="card-meta">
-            <div>Mumbai, Hyd: <b>direct</b> daily flights</div>
-            <div>Delhi: usually <b>1 stop</b> via BLR/BOM</div>
+            <div>Daily <b>direct</b> flights</div>
+            <div>About <b>1 hr 30 min</b></div>
             <div>Book <b>4 to 6 weeks</b> ahead</div>
           </div>
           <div class="card-actions">
@@ -1549,7 +1608,47 @@ footer {
               <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
               Copy details
             </button>
-            <a class="btn-small" href="https://www.google.com/flights" target="_blank" rel="noopener">Search flights ↗</a>
+            <a class="btn-small" href="https://www.skyscanner.co.in/transport/flights/bom/ixe/270130/270131/?adultsv2=2&amp;cabinclass=economy&amp;rtn=1" target="_blank" rel="noopener">Search on Skyscanner ↗</a>
+          </div>
+        </div>
+
+        <div class="travel-card" data-copy="Hyderabad (HYD) to Mangalore (IXE) · Depart 30 Jan 2027, return 31 Jan evening · IndiGo operates direct daily flights · Flight time about 1 hr 15 min">
+          <div class="card-header">
+            <h3 class="card-title">Hyderabad to Mangalore</h3>
+            <span class="card-badge">Direct</span>
+          </div>
+          <div class="card-route">HYD <span class="arrow">→</span> IXE</div>
+          <div class="card-meta">
+            <div>Daily <b>direct</b> flights</div>
+            <div>About <b>1 hr 15 min</b></div>
+            <div>Book <b>4 to 6 weeks</b> ahead</div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-small copy-btn" type="button">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+              Copy details
+            </button>
+            <a class="btn-small" href="https://www.skyscanner.co.in/transport/flights/hyd/ixe/270130/270131/?adultsv2=2&amp;cabinclass=economy&amp;rtn=1" target="_blank" rel="noopener">Search on Skyscanner ↗</a>
+          </div>
+        </div>
+
+        <div class="travel-card" data-copy="Delhi (DEL) to Mangalore (IXE) · Depart 30 Jan 2027, return 31 Jan evening · Usually 1 stop via BLR or BOM · Flight time about 4 to 5 hours total">
+          <div class="card-header">
+            <h3 class="card-title">Delhi to Mangalore</h3>
+            <span class="card-badge">1 stop</span>
+          </div>
+          <div class="card-route">DEL <span class="arrow">→</span> IXE</div>
+          <div class="card-meta">
+            <div>Usually <b>1 stop</b> via BLR or BOM</div>
+            <div>About <b>4 to 5 hrs</b> total</div>
+            <div>Book <b>4 to 6 weeks</b> ahead</div>
+          </div>
+          <div class="card-actions">
+            <button class="btn-small copy-btn" type="button">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+              Copy details
+            </button>
+            <a class="btn-small" href="https://www.skyscanner.co.in/transport/flights/del/ixe/270130/270131/?adultsv2=2&amp;cabinclass=economy&amp;rtn=1" target="_blank" rel="noopener">Search on Skyscanner ↗</a>
           </div>
         </div>
 
@@ -1591,7 +1690,7 @@ footer {
           </div>
         </div>
 
-        <div class="travel-card" data-copy="KSRTC and private operators run buses between Mysuru and Mangalore via Madikeri or Hassan · Overnight sleepers available · About 9 hours">
+        <div class="travel-card" data-copy="KSRTC and private operators run buses between Mysuru and Mangalore via Madikeri or Hassan · Overnight sleepers available · About 7 hours">
           <div class="card-header">
             <h3 class="card-title">From Mysuru</h3>
             <span class="card-badge">Via Hassan</span>
@@ -1599,7 +1698,7 @@ footer {
           <div class="card-route">Mysuru <span class="arrow">→</span> Mangalore</div>
           <div class="card-meta">
             <div>KSRTC and private operators</div>
-            <div>About <b>9 hrs</b></div>
+            <div>About <b>7 hrs</b></div>
             <div>Overnight sleeper options</div>
           </div>
           <div class="card-actions">
@@ -1726,6 +1825,7 @@ footer {
       <div class="spot-grid">
 
         <div class="spot">
+          <span class="food-marker nonveg" aria-label="Non-vegetarian" title="Non-vegetarian"></span>
           <h4>Giri Manja's</h4>
           <p>Mangalore's most famous fish fry, in a tiny room near Mannagudda. Go early, be prepared to wait, order the anjal fry.</p>
           <div class="meta">
@@ -1735,6 +1835,7 @@ footer {
         </div>
 
         <div class="spot">
+          <span class="food-marker nonveg" aria-label="Non-vegetarian" title="Non-vegetarian"></span>
           <h4>Machali</h4>
           <p>Fine-dining seafood in Falnir. Fresh catch, Mangalorean preparations, and an actual sit-down menu. Great for a nice evening out.</p>
           <div class="meta">
@@ -1744,6 +1845,7 @@ footer {
         </div>
 
         <div class="spot">
+          <span class="food-marker nonveg" aria-label="Non-vegetarian" title="Non-vegetarian"></span>
           <h4>Shetty Lunch Home</h4>
           <p>The Mangalore institution for Kori Rotti, Neer Dosa, and Chicken Ghee Roast. Lunch-only crowd favourite.</p>
           <div class="meta">
@@ -1753,11 +1855,22 @@ footer {
         </div>
 
         <div class="spot">
+          <span class="food-marker veg" aria-label="Vegetarian" title="Vegetarian"></span>
           <h4>Pabba's Ideal Café</h4>
           <p>Home of the legendary Gadbad ice cream. The city's sweet full-stop after any Mangalorean meal.</p>
           <div class="meta">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C7.58 2 4 5.58 4 10c0 5.5 8 12 8 12s8-6.5 8-12c0-4.42-3.58-8-8-8zm0 10.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
             Lalbagh · dessert stop
+          </div>
+        </div>
+
+        <div class="spot">
+          <span class="food-marker veg" aria-label="Vegetarian" title="Vegetarian"></span>
+          <h4>Janatha Deluxe</h4>
+          <p>Pure vegetarian stalwart in the heart of the city. South Indian thalis, dosas, filter coffee, all done properly. The reliable pick if you're skipping the seafood trail.</p>
+          <div class="meta">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C7.58 2 4 5.58 4 10c0 5.5 8 12 8 12s8-6.5 8-12c0-4.42-3.58-8-8-8zm0 10.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
+            Hampankatta · pure veg
           </div>
         </div>
 
@@ -1780,8 +1893,8 @@ footer {
         </div>
 
         <div class="spot">
-          <h4>Valencia Church</h4>
-          <p>Our Lady of Fatima, Valencia. A beautiful parish church with a strong Mangalorean Catholic community and quiet, well-kept grounds.</p>
+          <h4>St Vincent Ferrer Church</h4>
+          <p>Valencia. A beloved parish church with a strong Mangalorean Catholic community and quiet, well-kept grounds. Worth a stop if you're in the area.</p>
           <div class="meta">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C7.58 2 4 5.58 4 10c0 5.5 8 12 8 12s8-6.5 8-12c0-4.42-3.58-8-8-8zm0 10.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
             Valencia · parish church
@@ -1803,6 +1916,15 @@ footer {
           <div class="meta">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C7.58 2 4 5.58 4 10c0 5.5 8 12 8 12s8-6.5 8-12c0-4.42-3.58-8-8-8zm0 10.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
             Attur, Karkala · 58 km · pilgrimage
+          </div>
+        </div>
+
+        <div class="spot">
+          <h4>Infant Jesus Shrine</h4>
+          <p>Bikarnakatte. A popular city shrine dedicated to the Infant Jesus of Prague. Thursday novenas draw crowds from across the region, and the setting is quietly beautiful on any other day.</p>
+          <div class="meta">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C7.58 2 4 5.58 4 10c0 5.5 8 12 8 12s8-6.5 8-12c0-4.42-3.58-8-8-8zm0 10.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg>
+            Bikarnakatte · shrine
           </div>
         </div>
 
@@ -1918,31 +2040,6 @@ footer {
   </div>
 </section>
 
-<!-- ============ CONTACT ============ -->
-<section class="contact" id="contact" style="padding:0">
-  <div class="contact-wrap">
-    <div class="eyebrow">Need help?</div>
-    <h2 class="sec-title">We've got you</h2>
-    <p class="sec-sub">For anything at all. Travel questions, stay suggestions, or just letting us know you're on the way.</p>
-
-    <div class="contact-card">
-      <div class="contact-name">Rohvin Dsouza</div>
-      <div class="contact-role">Point of contact</div>
-      <div class="contact-phone">+91 90601 08650</div>
-      <div class="contact-actions">
-        <a class="btn primary" href="https://wa.me/919060108650?text=Hi%20Rohvin%2C%20I%27m%20coming%20for%20the%20engagement%21" target="_blank" rel="noopener">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163A11.87 11.87 0 010 11.86C.003 5.316 5.335.003 11.892.003c3.184 0 6.167 1.24 8.41 3.49a11.82 11.82 0 013.48 8.413c-.003 6.544-5.335 11.86-11.89 11.86a11.9 11.9 0 01-5.688-1.45L.057 24z"/></svg>
-          WhatsApp Rohvin
-        </a>
-        <a class="btn" href="tel:+919060108650">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.28-.28.67-.36 1.02-.25 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-          Call Rohvin
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ============ PHOTO POOL TEASER ============ -->
 <section class="photo-pool" id="photos">
   <div class="photo-pool-card">
@@ -1992,6 +2089,14 @@ footer {
       <div class="modal-eyebrow">RSVP · Confirming attendance</div>
       <h3 class="modal-title" id="modal-title">See you there</h3>
       <p class="modal-sub">Fill the quick form, then tap <b>Send</b> on WhatsApp.</p>
+
+      <div class="form-row">
+        <label class="form-label">Send RSVP to</label>
+        <div class="form-toggle">
+          <div><input type="radio" name="y-host" id="y-host-r" value="rohvin" checked><label for="y-host-r">Rohvin</label></div>
+          <div><input type="radio" name="y-host" id="y-host-a" value="adline"><label for="y-host-a">Adline</label></div>
+        </div>
+      </div>
 
       <div class="form-row">
         <label class="form-label" for="y-name">Your name <span class="req">*</span></label>
@@ -2053,6 +2158,14 @@ footer {
       <p class="modal-sub">No worries. Send us a quick note, we'd love to hear from you.</p>
 
       <div class="form-row">
+        <label class="form-label">Send regrets to</label>
+        <div class="form-toggle">
+          <div><input type="radio" name="n-host" id="n-host-r" value="rohvin" checked><label for="n-host-r">Rohvin</label></div>
+          <div><input type="radio" name="n-host" id="n-host-a" value="adline"><label for="n-host-a">Adline</label></div>
+        </div>
+      </div>
+
+      <div class="form-row">
         <label class="form-label" for="n-name">Your name <span class="req">*</span></label>
         <input class="form-input" type="text" id="n-name" required autocomplete="name" placeholder="e.g. Pradeep Dsouza">
       </div>
@@ -2089,6 +2202,37 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     }
   });
 });
+
+/* ========== Scroll-spy for nav tabs ========== */
+(function() {
+  const tabs = document.querySelectorAll('.nav-tabs a');
+  const sections = Array.from(tabs)
+    .map(t => document.getElementById(t.getAttribute('href').substring(1)))
+    .filter(Boolean);
+
+  function updateActiveTab() {
+    if (!sections.length) return;
+    const scrollPos = window.scrollY + 140; // offset for the taller sticky nav
+    let activeIdx = 0;
+    for (let i = 0; i < sections.length; i++) {
+      if (sections[i].offsetTop <= scrollPos) activeIdx = i;
+    }
+    // Edge: if at absolute top, force first tab
+    if (window.scrollY < 50) activeIdx = 0;
+    tabs.forEach((tab, i) => tab.classList.toggle('active', i === activeIdx));
+  }
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(() => { updateActiveTab(); ticking = false; });
+      ticking = true;
+    }
+  }, { passive: true });
+  window.addEventListener('load', updateActiveTab);
+  window.addEventListener('resize', updateActiveTab);
+  updateActiveTab();
+})();
 
 /* ========== Countdown to 31 Jan 2027 11:00 AM IST ========== */
 // IST = UTC+5:30 → 11:00 IST = 05:30 UTC
@@ -2193,10 +2337,10 @@ document.querySelectorAll('.copy-btn').forEach(btn => {
 
 /* ========== Konkani phrase rotator ========== */
 const phrases = [
-  { k: "Mog Asundhi",              m: "Let there be love" },
+  { k: "Mog Asundi",               m: "Let there be love" },
   { k: "Don kallzam, ek mog",      m: "Two hearts, one love" },
   { k: "Dev borem korum",          m: "Thank you (literally: God bless you)" },
-  { k: "Yo, bhaile yo!",           m: "Come, come inside" },
+  { k: "Yo Moga Yo",               m: "Come, love, come" },
   { k: "Jevan zaale?",             m: "Have you eaten?" }
 ];
 let kIdx = 0;
@@ -2264,7 +2408,10 @@ planClear.addEventListener('click', () => {
 
 /* ========== RSVP ========== */
 const RSVP_KEY = 'adlineRohvinRSVP';
-const HOST_NUMBER = '919060108650';
+const HOSTS = {
+  rohvin: { number: '919060108650', name: 'Rohvin' },
+  adline: { number: '917259918346', name: 'Adline' }
+};
 
 const modal      = document.getElementById('rsvp-modal');
 const formYes    = document.getElementById('rsvp-form-yes');
@@ -2284,6 +2431,11 @@ function openRSVP(variant) {
 
   // prefill from saved RSVP
   if (saved && saved.attending === variant) {
+    const hostField = variant === 'yes' ? 'y-host' : 'n-host';
+    if (saved.host) {
+      const hr = document.querySelector(`input[name="${hostField}"][value="${saved.host}"]`);
+      if (hr) hr.checked = true;
+    }
     if (variant === 'yes') {
       document.getElementById('y-name').value = saved.name || '';
       document.getElementById('y-city').value = saved.city || '';
@@ -2332,7 +2484,12 @@ document.addEventListener('keydown', (e) => {
 function submitRSVP(event, variant) {
   event.preventDefault();
 
-  let data = { attending: variant, submittedAt: Date.now() };
+  // Resolve who the RSVP goes to
+  const hostField = variant === 'yes' ? 'y-host' : 'n-host';
+  const hostChoice = (document.querySelector(`input[name="${hostField}"]:checked`) || {}).value || 'rohvin';
+  const host = HOSTS[hostChoice] || HOSTS.rohvin;
+
+  let data = { attending: variant, host: hostChoice, submittedAt: Date.now() };
   let msg = '';
 
   if (variant === 'yes') {
@@ -2351,7 +2508,7 @@ function submitRSVP(event, variant) {
     Object.assign(data, { name, city, count, food, stay, note });
 
     const lines = [
-      "🎉 *RSVP for your engagement*",
+      `🎉 *RSVP for your engagement* · for ${host.name}`,
       "",
       `*Name:* ${name}`,
       `*Attending:* Yes ✓`,
@@ -2375,7 +2532,7 @@ function submitRSVP(event, variant) {
     Object.assign(data, { name, note });
 
     const lines = [
-      "💍 *RSVP for your engagement*",
+      `💍 *RSVP for your engagement* · for ${host.name}`,
       "",
       `*Name:* ${name}`,
       `*Attending:* Unfortunately no`
@@ -2390,10 +2547,10 @@ function submitRSVP(event, variant) {
   renderSaved(data);
   closeRSVP();
 
-  const url = `https://wa.me/${HOST_NUMBER}?text=${encodeURIComponent(msg)}`;
+  const url = `https://wa.me/${host.number}?text=${encodeURIComponent(msg)}`;
   window.open(url, '_blank', 'noopener');
 
-  showToast('Opening WhatsApp. Tap Send to finish!');
+  showToast(`Opening WhatsApp to ${host.name}. Tap Send to finish!`);
 }
 
 function saveRSVP(data) {
