@@ -42,7 +42,7 @@ html, body { margin: 0; padding: 0; }
   padding-top: env(safe-area-inset-top, 0px);
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
-html { scroll-padding-top: calc(100px + env(safe-area-inset-top, 0px)); }
+html { scroll-padding-top: calc(116px + env(safe-area-inset-top, 0px)); }
 
 body {
   background: var(--cream);
@@ -75,7 +75,7 @@ body::before {
 .nav-top {
   position: relative;
   text-align: center;
-  padding: 14px 24px 6px;
+  padding: 16px 24px 14px;
   max-width: 1120px;
   margin: 0 auto;
 }
@@ -107,7 +107,7 @@ body::before {
   display: flex;
   justify-content: center;
   gap: 30px;
-  padding: 0 24px 12px;
+  padding: 4px 24px 14px;
   max-width: 1120px;
   margin: 0 auto;
   flex-wrap: wrap;
@@ -130,9 +130,9 @@ body::before {
 }
 
 @media (max-width: 560px) {
-  .nav-top { padding: 12px 20px 4px; }
+  .nav-top { padding: 14px 20px 10px; }
   .brand { font-size: 25px; letter-spacing: 1.2px; }
-  .nav-tabs { gap: 14px; padding: 0 16px 10px; }
+  .nav-tabs { gap: 14px; padding: 2px 16px 12px; }
   .nav-tabs a { font-size: 10.5px; letter-spacing: 1.3px; }
   .nav-cross { right: 16px; }
 }
@@ -2040,6 +2040,51 @@ footer {
   </div>
 </section>
 
+<!-- ============ CONTACT ============ -->
+<section class="contact" id="contact" style="padding:0">
+  <div class="contact-wrap">
+    <div class="eyebrow">Need help?</div>
+    <h2 class="sec-title">We've got you</h2>
+    <p class="sec-sub">For anything at all. Travel questions, stay suggestions, or just letting us know you're on the way.</p>
+
+    <div class="contact-grid">
+
+      <div class="contact-card">
+        <div class="contact-name">Rohvin Dsouza</div>
+        <div class="contact-role">Point of contact</div>
+        <div class="contact-phone">+91 90601 08650</div>
+        <div class="contact-actions">
+          <a class="btn primary" href="https://wa.me/919060108650?text=Hi%20Rohvin%2C%20I%27m%20coming%20for%20the%20engagement%21" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163A11.87 11.87 0 010 11.86C.003 5.316 5.335.003 11.892.003c3.184 0 6.167 1.24 8.41 3.49a11.82 11.82 0 013.48 8.413c-.003 6.544-5.335 11.86-11.89 11.86a11.9 11.9 0 01-5.688-1.45L.057 24z"/></svg>
+            WhatsApp
+          </a>
+          <a class="btn" href="tel:+919060108650">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.28-.28.67-.36 1.02-.25 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            Call
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-card">
+        <div class="contact-name">Adline</div>
+        <div class="contact-role">Point of contact</div>
+        <div class="contact-phone">+91 72599 18346</div>
+        <div class="contact-actions">
+          <a class="btn primary" href="https://wa.me/917259918346?text=Hi%20Adline%2C%20I%27m%20coming%20for%20the%20engagement%21" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M.057 24l1.687-6.163A11.87 11.87 0 010 11.86C.003 5.316 5.335.003 11.892.003c3.184 0 6.167 1.24 8.41 3.49a11.82 11.82 0 013.48 8.413c-.003 6.544-5.335 11.86-11.89 11.86a11.9 11.9 0 01-5.688-1.45L.057 24z"/></svg>
+            WhatsApp
+          </a>
+          <a class="btn" href="tel:+917259918346">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.28-.28.67-.36 1.02-.25 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+            Call
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ============ PHOTO POOL TEASER ============ -->
 <section class="photo-pool" id="photos">
   <div class="photo-pool-card">
@@ -2212,7 +2257,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 
   function updateActiveTab() {
     if (!sections.length) return;
-    const scrollPos = window.scrollY + 140; // offset for the taller sticky nav
+    const scrollPos = window.scrollY + 160; // offset for the taller sticky nav
     let activeIdx = 0;
     for (let i = 0; i < sections.length; i++) {
       if (sections[i].offsetTop <= scrollPos) activeIdx = i;
